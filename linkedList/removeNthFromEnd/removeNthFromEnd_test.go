@@ -23,8 +23,8 @@ var tests = []struct {
 func Test(t *testing.T) {
 	for i, tt := range tests {
 		t.Run(strconv.Itoa(i+1), func(t *testing.T) {
-			head := ArrayToLinkList(tt.in.array)
-			linkList := removeNthFromEnd(head, tt.in.n)
+			linkList := ArrayToLinkList(tt.in.array)
+			linkList = removeNthFromEnd(linkList, tt.in.n)
 			res := LinkListToArray(linkList)
 			if !reflect.DeepEqual(res, tt.out) {
 				t.Errorf("with [%v] | got [%v] | want [%v]", tt.in, res, tt.out)
