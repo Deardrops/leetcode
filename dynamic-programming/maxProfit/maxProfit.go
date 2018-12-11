@@ -9,15 +9,15 @@ package main
 */
 
 func maxProfit(prices []int) int {
-	var maxCurr, maxDiff int
+	var maxCurr, maxSoFar int
 	for i := 1; i < len(prices); i++ {
 		maxCurr += prices[i] - prices[i-1]
 		if maxCurr < 0 {
 			maxCurr = 0
 		}
-		if maxCurr > maxDiff {
-			maxDiff = maxCurr
+		if maxCurr > maxSoFar {
+			maxSoFar = maxCurr
 		}
 	}
-	return maxDiff
+	return maxSoFar
 }
