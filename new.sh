@@ -13,4 +13,4 @@ then
 fi
 
 mkdir "$1"
-cp ./template.go ./$1/$1.go
+cp ./template.go ./$1/solution.go
