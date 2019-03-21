@@ -18,7 +18,7 @@ func exist(board [][]byte, word string) bool {
 				tmp := make([]bool, width)
 				visited = append(visited, tmp)
 			}
-			if search(width, height, x, y, []byte(word), &board, visited) {
+			if search(width, height, x, y, []byte(word), board, visited) {
 				return true
 			}
 		}
@@ -26,14 +26,14 @@ func exist(board [][]byte, word string) bool {
 	return false
 }
 
-func search(width, height, x, y int, str []byte, board *[][]byte, visited [][]bool) bool {
+func search(width, height, x, y int, str []byte, board [][]byte, visited [][]bool) bool {
 	if len(str) == 0 {
 		return true
 	}
 	if x < 0 || x >= width || y < 0 || y >= height {
 		return false
 	}
-	if str[0] != (*board)[y][x] {
+	if str[0] != board[y][x] {
 		return false
 	}
 	if visited[y][x] {
@@ -43,6 +43,14 @@ func search(width, height, x, y int, str []byte, board *[][]byte, visited [][]bo
 	visited[y][x] = true
 	str = str[1:]
 	succ := search(width, height, x, y-1, str, board, visited) || search(width, height, x, y+1, str, board, visited) || search(width, height, x-1, y, str, board, visited) || search(width, height, x+1, y, str, board, visited)
+	// Q：为什么这里要将已修改的二维数组还原回去？按理说数组在上一句函数调用时会拷贝一份，原数组并不会被修改才对。
+	// A：《Go 语言学习笔记》中提到以下几点：
+	// []int 这个类型叫切片，不叫数组。[3]int 这种才叫做数组。
+	// 切片是一种特殊的结构体，其内部通过指针引用底层数组，可以把切片看作数组指针的一种封装。
+	// Golang 语言中，函数的参数一定是值拷贝传递（pass-by-value）。
+	// 新建的切片对象依旧指向原底层数组，也就是说修改度所有关联的切片可见。
+	// 两句话加起来是说，切片作为参数时，在函数内部被修改时，会影响到原来的切片。
+
 	if !succ {
 		visited[y][x] = false
 	} else {
