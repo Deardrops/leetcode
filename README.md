@@ -12,7 +12,3 @@ Profile: https://leetcode-cn.com/deardrops/
 
 目前正在推进 leetcode-cn 上的 [中级算法](https://leetcode-cn.com/explore/interview/card/top-interview-questions-medium)。~~从零开始学算法系列~~
 
-## Tips
-
-**快速添加一道题目**：终端进入项目文件夹，输入 `./new.sh abcd`，即可创建一个名为 `abcd` 的文件夹，其中包含golang模板代码，开始刷题吧！
-
